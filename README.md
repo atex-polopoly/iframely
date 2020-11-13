@@ -1,3 +1,9 @@
+## Changes by Atex
+
+### 2020-11-13
+
+The oEmbed access tokens used for facebook and instagram embeds are now configurable as process environment variables in config.js.
+
 # Iframely API for Responsive Web Embeds
 
 This is the self-hosted version of Iframely's APIs and parsers. 
