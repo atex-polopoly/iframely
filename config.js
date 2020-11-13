@@ -51,6 +51,8 @@
             'ESOCKETTIMEDOUT'
         ],
 
+        DISABLE_HTTP2: true,
+
         // Customize API calls to oembed endpoints.
         // Must have: please add your `access_token` for Facebook and Instagram API calls
         ADD_OEMBED_PARAMS: [{
