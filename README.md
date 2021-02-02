@@ -1,5 +1,9 @@
 ## Changes by Atex
 
+### 2021-02-02
+
+Updated master to be in line with v1.6.0.
+
 ### 2020-11-13
 
 The oEmbed access tokens used for facebook and instagram embeds are now configurable as process environment variables in config.js.
