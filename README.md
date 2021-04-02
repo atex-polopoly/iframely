@@ -1,5 +1,9 @@
 ## Changes by Atex
 
+### 2021-04-02
+
+The Youtube GDATA API key is now configurable as a process environment variable in config.js.
+
 ### 2021-02-02
 
 Updated master to be in line with v1.6.0.

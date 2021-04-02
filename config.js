@@ -425,7 +425,17 @@
 
         providerOptions: {
             "readability": {},
-            "twitter.status": {}
+            "twitter.status": {},
+
+            // List of query parameters to add to YouTube and Vimeo frames
+            // Start it with leading "?". Or omit alltogether for default values
+            // API key is optional, youtube will work without it too.
+            // It is probably the same API key you use for Google Maps.
+            youtube: {
+                api_key: process.env.YOUTUBE_GDATA_API_KEY || '',
+                // parts: [ "snippet", "player" ], // list of fields you want to use in the request, in most cases you only need those two
+                get_params: "?rel=0"     // https://developers.google.com/youtube/player_parameters
+            },
         }
     };
 
