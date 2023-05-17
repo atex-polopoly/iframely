@@ -336,7 +336,8 @@
     {
         "name": "Wistia",
         "templates": [
-            ".*\\.wistia.com/medias/.*"
+            ".*\\.wistia.com/medias/.*",            
+            "fast.wistia.net/embed/iframe/.*"
         ],
         "endpoint": "http://fast.wistia.com/oembed.{format}"
     },
@@ -923,5 +924,20 @@
         ],
         "url": "https://www.pinterest.com/pin/{1}",
         "endpoint": "https://www.pinterest.com/oembed.json?url={url}&ref=iframely"
+    },
+    {
+        "name": "Pinterest boards and users",
+        "templates": [
+            "(?:\\w{2,3}\\.)?pinterest(?:\\.com?)?\\.\\w{2,3}\\/((?!pin)[a-zA-Z0-9%_]+|pinterest)\\/([a-zA-Z0-9%\\-]+)\\/?(?:$|\\?|#)",
+            "(?:\\w{2,3}\\.)?pinterest(?:\\.com?)?\\.\\w{2,3}\\/((?!pin)[a-zA-Z0-9%_]+|pinterest)\\/?(?:$|\\?|#)"
+        ],
+        "endpoint": "https://www.pinterest.com/oembed.json?url={url}&ref=iframely"
+    },    
+    {
+        "name": "Mightycause",
+        "templates": [
+            "mightycause.com/story/*"
+        ],
+        "endpoint": "https://www.mightycause.com/1/oembed"
     }
 ]

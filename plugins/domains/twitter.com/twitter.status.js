@@ -1,4 +1,3 @@
-import log from '../../../logging.js';
 import * as entities from 'entities';
 
 export default {
@@ -9,7 +8,7 @@ export default {
 
     mixins: ['domain-icon'],
 
-    getData: function(urlMatch, request, options, cb) {
+    getData: function(urlMatch, request, log, options, cb) {
 
         var hide_media = options.getProviderOptions("twitter.hide_media");
         var omit_script = options.getProviderOptions("twitter.omit_script");
@@ -26,7 +25,8 @@ export default {
                 omit_script: omit_script,
                 url: urlMatch[0]
             },
-            json: true,
+            // json: true,  // Causes issues on 404 when it's not in JSON format, we need result code here. 
+                            // When response is OK and is JSON, `fetchData` in fetch.js will see `application/json` and will convert to JSON on its own.
             cache_key: 'twitter:oembed:' + urlMatch[1],
             prepareResult: function(error, response, oembed, cb) {
 
@@ -66,7 +66,7 @@ export default {
                     twitter_oembed: oembed
                 };
 
-                if (/pic\.twitter\.com/i.test(oembed.html)) {
+                if (/pic\.twitter\.com/i.test(oembed.html) && options.getProviderOptions("twitter.thumbnail", false)) {
                     result.__allowTwitterOg = true;
                     options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
                     options.exposeStatusCode = true;
