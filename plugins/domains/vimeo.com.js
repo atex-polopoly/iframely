@@ -26,8 +26,12 @@ export default {
 
     getLink: function(oembed, options) {
         var iframe = oembed.getIframe();
+        const query = options.getQueryOptions();
 
         var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
+        if (query) {
+            params = {...params, ...query};
+        }
 
         if (options.getProviderOptions('players.showinfo', false)) {
             params.title = 1;
@@ -41,6 +45,14 @@ export default {
             params.texttrack = texttrack;
         } else {
             texttrack = '';
+        }
+
+        // https://developer.vimeo.com/api/oembed/videos
+        var controls = options.getRequestOptions('vimeo.controls', params.controls);
+        if (controls == 0) {
+            params.controls = false;
+        } else if (params.controls) {
+            delete params.controls;
         }
 
         var links = [];
@@ -81,15 +93,14 @@ export default {
             links.push(thumbnail);
         }
 
-        // Also let's try and add bigger image if needed, but check that it's value.
-        // No need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214.
+        // Also let's try and add a bigger image.
         if (/* options.getProviderOptions('images.loadSize') !== false */
             CONFIG.providerOptions && CONFIG.providerOptions.images
             && CONFIG.providerOptions.images.loadSize !== false
-            && /\-d_\d{2,4}x\d{2,4}(?:\.jpg)?$/.test(oembed.thumbnail_url)) {
+            && /\-d_\d{2,4}(?:x\d{2,4})?(?:\.jpg)?$/.test(oembed.thumbnail_url)) {
             links.push({
-                href:oembed.thumbnail_url.replace(/\-d_\d{2,4}x\d{2,4}((?:\.jpg)?)$/, `-d_${oembed.width}$1`),
-                type: CONFIG.T.image,
+                href:oembed.thumbnail_url.replace(/\-d_\d{2,4}(?:x\d{2,4})?((?:\.jpg)?)$/, `-d?f=webp`),
+                type: CONFIG.T.image_webp,
                 rel: CONFIG.R.thumbnail
             });
         }

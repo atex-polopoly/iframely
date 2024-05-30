@@ -28,20 +28,13 @@
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
+        CACHE_ERROR_TTL: 10 * 60,   // 10 min - cache for error responses.
         API_REQUEST_CACHE_TTL: 30 * 24 * 60 * 60,
         IMAGE_META_CACHE_TTL: 7 * 24 * 60 * 60,
 
         CACHE_TTL_PAGE_TIMEOUT: 10 * 60,
         CACHE_TTL_PAGE_404: 10 * 60,
         CACHE_TTL_PAGE_OTHER_ERROR: 1 * 60,
-
-        // Do not cache response in htmlparser with these status codes.
-        TEMP_HTTP_ERROR_CODES: [
-            408, 
-            418, 
-            429
-            // 5xx included in logic.
-        ],
 
         HTTP2_RETRY_CODES_LIST: [
             'ECONNRESET',
@@ -224,11 +217,12 @@
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
-            'accelerometer', 'ambient-light-sensor', 'autoplay', 'battery', 'camera', 'clipboard-write', 'display-capture',
-            'document-domain', 'encrypted-media', 'execution-while-not-rendered', 'execution-while-out-of-viewport', 
-            'fullscreen', 'geolocation', 'gyroscope', 'legacy-image-formats', 'magnetometer', 'microphone', 'midi', 
-            'oversized-images', 'payment', 'picture-in-picture', 'publickey-credentials-get', 'screen-wake-lock',
-            'speaker', 'sync-xhr', 'usb', 'vr', 'vr / xr', 'wake-lock', 'web-share', 'xr-spatial-tracking'
+            'accelerometer', 'ambient-light-sensor', 'autoplay', 'battery', 'bluetooth', 'camera', 'clipboard-read', 
+            'clipboard-write', 'display-capture', 'document-domain', 'encrypted-media', 'execution-while-not-rendered', 
+            'execution-while-out-of-viewport', 'fullscreen', 'gamepad', 'geolocation', 'gyroscope', 'hid', 
+            'identity-credentials-get', 'idle-detection', 'local-fonts', 'magnetometer', 'microphone', 'midi', 
+            'otp-credentials', 'payment', 'picture-in-picture', 'publickey-credentials-get', 'screen-wake-lock', 
+            'serial', 'speaker-selection', 'storage-access', 'usb', 'web-share', 'window-management', 'xr-spatial-tracking'
         ],
 
         // Option labels:

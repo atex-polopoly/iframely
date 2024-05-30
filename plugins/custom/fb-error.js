@@ -1,6 +1,6 @@
 export default {
 
-    getLink: function(oembedError, url, log, cb) {
+    getLink: function(oembedError, url, log, options, cb) {
 
         // https://developers.facebook.com/docs/graph-api/using-graph-api/error-handling/
         // Though the errors we actually need are not in the doc...
@@ -27,8 +27,14 @@ export default {
         if (!error && 
                 (!oembedError.body // Connection issue like ERR_HTTP2_STREAM_ERROR
                     || fbError.is_transient) // Unexpected transient error
-                ) {            
+                ) {
+
             error = 408;
+        }
+
+        if (fbError.code === 2 /* downtime */ && fbError.is_transient && options.cache_ttl === 0) {
+            // handle error elsewhere, e.g. fall back to generic parsers
+            error = null;
         }
 
         const isVideo = /(?:videos?|watch)/i.test(url);
@@ -48,6 +54,12 @@ export default {
             // Instagram's post with disabled embedding
             result.message = "Owner has disabled embedding of this post";
             result.fallback = "generic";
+        } else if (/endpoint must be reviewed and approved by Facebook/.test(oembedError?.body?.error?.message) 
+            && options.getProviderOptions('facebook.oembed_read_error_msg')
+            && /^887156172/.test(options.getProviderOptions('facebook.access_token'))) {
+
+            result.message = options.getProviderOptions('facebook.oembed_read_error_msg');
+
         } else if ((fbError.error_user_msg || fbError.message) && error !== 404) {
             result.message = fbError.error_user_msg || fbError.message;
         }
