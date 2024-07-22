@@ -95,7 +95,7 @@
     {
         "name": "Giphy",
         "templates": [
-            "giphy\\.com/gifs/[a-zA-Z0-9_-]+\\-([a-zA-Z0-9]+)(?:\\?.+)?"
+            "giphy\\.com/(?:gifs|stickers)/[a-zA-Z0-9_-]+\\-([a-zA-Z0-9]+)(?:\\?.+)?"
         ],
         "url": "https://media.giphy.com/media/{1}/giphy.gif",
         "endpoint": "https://giphy.com/services/oembed"
@@ -169,6 +169,13 @@
         "endpoint": "https://www.youtube.com/oembed?format={format}&url={url}"
     },
     {
+        "name": "YouTube Shorts",
+        "templates": [
+            "www\\.youtube\\.com/shorts/([a-zA-Z0-9_-]+)"
+        ],
+        "endpoint": "https://www.youtube.com/oembed"
+    },    
+    {
         "name": "YouTube Playlist",
         "templates": [
             "www\\.youtube\\.com/playlist"
@@ -192,7 +199,7 @@
     {
         "name": "SlideShare",
         "templates": [
-            "\\w+\\.slideshare\\.net/.+/.*"
+            "\\w+\\.slideshare\\.net/(?!slideshow).+/.*"
         ],
         "endpoint": "https://www.slideshare.net/api/oembed/2"
     },
@@ -606,7 +613,7 @@
     }, {
         "name": "Figma",
         "templates": [
-            "(?:[\\w\\.-]+\\.)?figma.com/(file|proto)/.*"
+            "(?:[\\w\\.-]+\\.)?figma.com/(file|proto|design|board)/.*"
         ],
         "endpoint": "https://www.figma.com/api/oembed"
     }, {

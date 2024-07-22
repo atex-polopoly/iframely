@@ -54,15 +54,16 @@
         "feedparser": "2.2.10",
         "mocha": "^10.2.0",
         "mock-http-server": "^1.4.5",
-        "mongoose": "^6.12.8",
+        "mongoose": "^8.4.0",
         "supertest": "^6.3.3"
     },
     "iframely-proxy-plugins": true,
     "main": "./lib/core.js",
     "scripts": {
-        "test": "npm run test-core-plugins && npm run test-e2e",
+        "test": "npm run test-core-plugins && npm run test-e2e && npm run custom_plugins",
         "test-core-plugins": "mocha --exit test/core-plugins.js",
-        "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js"
+        "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js",
+        "custom_plugins": "NODE_ENV=test_with_custom_plugins PORT=8080 mocha --exit test/custom_plugins.js"
     },
     "engines": {
         "node": ">=14.0"
